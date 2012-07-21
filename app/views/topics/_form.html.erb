@@ -1,25 +1,37 @@
 <%= form_for(@topic) do |f| %>
-  <% if @topic.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@topic.errors.count, "error") %> prohibited this topic from being saved:</h2>
+    <% if @topic.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@topic.errors.count, "error") %> prohibited this topic from being saved:</h2>
 
-      <ul>
-      <% @topic.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @topic.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :title %>
+      <br/>
+      <%= f.text_field :title %>
     </div>
-  <% end %>
+    <div class="field">
+      <%= f.label :description %>
+      <br/>
+      <%= f.text_area :description %>
+    </div>
+    <div>
+      <%= select_tag "topic[author_email]", options_from_collection_for_select(Author.all, "email", "email", @topic.author_email) %>
+    </div>
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+    <!--#<div class="field">-->
+      <!--<%= f.label :author_email  %>-->
+      <!--<br/>-->
+      <!--<%= f.text_field :author_email %>-->
+      <!--</div>-->
+      <div class="actions">
+        <%= f.submit %>
+      </div>
 <% end %>

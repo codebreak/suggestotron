@@ -40,7 +40,9 @@ class TopicsController < ApplicationController
   # POST /topics
   # POST /topics.json
   def create
-    @topic = Topic.new(params[:topic])
+    @topic        = Topic.new(params[:topic].slice(:title, :description))
+    @author       = Author.find_by_email params[:topic][:author_email]
+    @topic.author = @author
 
     respond_to do |format|
       if @topic.save
@@ -56,10 +58,14 @@ class TopicsController < ApplicationController
   # PUT /topics/1
   # PUT /topics/1.json
   def update
-    @topic = Topic.find(params[:id])
+    @topic        = Topic.find(params[:id])
 
     respond_to do |format|
-      if @topic.update_attributes(params[:topic])
+      if @topic.update_attributes(params[:topic].slice(:title, :description))
+        @author = Author.find_by_email(params[:topic][:author_email])
+        @topic.author = @author
+        @topic.save!
+
         format.html { redirect_to @topic, notice: 'Topic was successfully updated.' }
         format.json { head :no_content }
       else

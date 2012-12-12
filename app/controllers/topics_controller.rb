@@ -24,6 +24,7 @@ class TopicsController < ApplicationController
   # GET /topics/new
   # GET /topics/new.json
   def new
+    authenticate_user!
     @topic = Topic.new
 
     respond_to do |format|
@@ -40,9 +41,9 @@ class TopicsController < ApplicationController
   # POST /topics
   # POST /topics.json
   def create
+    authenticate_user!
     @topic        = Topic.new(params[:topic].slice(:title, :description))
-    @author       = Author.find_by_email params[:topic][:author_email]
-    @topic.author = @author
+    @topic.user   = current_user
 
     respond_to do |format|
       if @topic.save

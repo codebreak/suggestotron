@@ -21,15 +21,11 @@
       <br/>
       <%= f.text_area :description %>
     </div>
-    <div>
-      <%= select_tag "topic[author_email]", options_from_collection_for_select(Author.all, "email", "email", @topic.author_email) %>
-    </div>
-
 
     <!--#<div class="field">-->
-      <!--<%= f.label :author_email  %>-->
+      <!--<%= f.label :user_email  %>-->
       <!--<br/>-->
-      <!--<%= f.text_field :author_email %>-->
+      <!--<%= f.text_field :user_email %>-->
       <!--</div>-->
       <div class="actions">
         <%= f.submit %>

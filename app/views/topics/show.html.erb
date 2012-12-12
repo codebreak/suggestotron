@@ -8,6 +8,10 @@
   <%= @topic.description %>
 </p>
 
+<p>
+  <b>Suggester:</b>
+  <%= @topic.user_email %>
+</p>
 
 <%= link_to 'Edit', edit_topic_path(@topic) %> |
 <%= link_to 'Back', topics_path %>

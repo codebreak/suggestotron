@@ -1,9 +1,9 @@
 class Topic < ActiveRecord::Base
   attr_accessible :description, :title
 
-  belongs_to :author
+  belongs_to :user
 
-  def author_email
-    self.author.try(:email) || 'Anonymous'
+  def user_email
+    self.user.try(:email) || 'Anonymous'
   end
 end
